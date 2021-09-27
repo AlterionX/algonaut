@@ -263,8 +263,8 @@ pub struct AssetHolding {
 
     /// Address that created this asset. This is the address where the parameters for this asset can
     /// be found, and also the address where unwanted asset units can be sent in the worst case.
-    #[serde_as(as = "DisplayFromStr")]
-    pub creator: Address,
+    #[serde_as(as = "Option<DisplayFromStr>")]
+    pub creator: Option<Address>,
 
     /// `f` whether or not the holding is frozen.
     #[serde(rename = "is-frozen")]
