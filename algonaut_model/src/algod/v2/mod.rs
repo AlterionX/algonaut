@@ -2,7 +2,7 @@ use algonaut_core::{Address, MicroAlgos, Round};
 use algonaut_crypto::{deserialize_hash, HashDigest};
 use algonaut_encoding::deserialize_bytes;
 use serde::{Deserialize, Serialize};
-use serde_with::{serde_as, DisplayFromStr};
+use serde_with::{serde_as, DisplayFromStr, NoneAsEmptyString};
 
 #[serde_as]
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -207,8 +207,8 @@ pub struct ApplicationParams {
 
     /// The address that created this application. This is the address where the parameters and
     /// global state for this application can be found.
-    #[serde_as(as = "DisplayFromStr")]
-    pub creator: Address,
+    #[serde_as(as = "NoneAsEmptyString")]
+    pub creator: Option<String>,
 
     /// `gs` global schema
     #[serde(
@@ -263,7 +263,7 @@ pub struct AssetHolding {
 
     /// Address that created this asset. This is the address where the parameters for this asset can
     /// be found, and also the address where unwanted asset units can be sent in the worst case.
-    #[serde_as(as = "serde_with::NoneAsEmptyString")]
+    #[serde_as(as = "NoneAsEmptyString")]
     pub creator: Option<String>,
 
     /// `f` whether or not the holding is frozen.
@@ -286,8 +286,8 @@ pub struct AssetParams {
     /// The address that created this asset. This is the address where the parameters for this
     /// asset can be found, and also the address where unwanted asset units can be sent in the worst
     /// case.
-    #[serde_as(as = "DisplayFromStr")]
-    pub creator: Address,
+    #[serde_as(as = "NoneAsEmptyString")]
+    pub creator: Option<String>,
 
     /// `dc` The number of digits to use after the decimal point when displaying this asset.
     /// If 0, the asset is not divisible. If 1, the base unit of the asset is in tenths.
