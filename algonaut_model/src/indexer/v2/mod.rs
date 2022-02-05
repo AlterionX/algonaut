@@ -734,8 +734,8 @@ pub struct ApplicationLocalState {
     pub id: u64,
 
     /// `tkv` storage.
-    #[serde(default, rename = "key-value", skip_serializing_if = "Vec::is_empty")]
-    pub key_value: Vec<TealKeyValue>,
+    #[serde(rename = "key-value")]
+    pub key_value: Option<TealKeyValueStore>,
 
     /// Round when the account opted into the application.
     #[serde(rename = "opted-in-at-round")]
