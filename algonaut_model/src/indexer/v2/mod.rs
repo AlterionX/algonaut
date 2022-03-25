@@ -570,7 +570,7 @@ pub struct Account {
     /// `asset` assets held by this account.
     /// Note the raw object uses map(int) -> AssetHolding for this type.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    pub assets: Vec<AssetHolding>,
+    pub assets: Vec<MiniAssetHolding>,
 
     /// `spend` the address against which signing should be checked. If empty, the address of the
     /// current account is used. This field can be updated in any transaction by setting the
