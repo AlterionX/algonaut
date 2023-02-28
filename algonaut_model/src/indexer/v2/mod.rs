@@ -576,7 +576,7 @@ pub struct Account {
     /// current account is used. This field can be updated in any transaction by setting the
     /// RekeyTo field.
     #[serde(rename = "auth-addr")]
-    pub auth_addr: Option<Address>,
+    pub auth_addr: Option<String>,
 
     /// Round during which this account was most recently closed.
     #[serde(rename = "closed-at-round")]
