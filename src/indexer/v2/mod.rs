@@ -1,11 +1,11 @@
-use algonaut_client::{indexer::v2::Client, Headers};
+use algonaut_client::{indexer::v2::Client, Headers, error::ClientError};
 use algonaut_core::{Address, Round};
 use algonaut_model::indexer::v2::{
     AccountInfoResponse, AccountResponse, AccountTransactionResponse, ApplicationInfoResponse,
     ApplicationResponse, AssetResponse, AssetTransactionResponse, AssetsInfoResponse,
     BalancesResponse, Block, QueryAccount, QueryAccountInfo, QueryAccountTransaction,
     QueryApplicationInfo, QueryApplications, QueryAssetTransaction, QueryAssets, QueryAssetsInfo,
-    QueryBalances, QueryTransaction, TransactionInfoResponse, TransactionResponse,
+    QueryBalances, QueryTransaction, TransactionInfoResponse, TransactionResponse, AccountAssetsResponse, QueryAccountAssetsInfo,
 };
 
 use crate::error::AlgonautError;
@@ -50,6 +50,10 @@ impl Indexer {
         query: &QueryAccountInfo,
     ) -> Result<AccountInfoResponse, AlgonautError> {
         Ok(self.client.account_info(address, query).await?)
+    }
+
+    pub async fn account_assets(&self, address: &Address, query: &QueryAccountAssetsInfo) -> Result<AccountAssetsResponse, ClientError> {
+        Ok(self.client.account_assets(address, query).await?)
     }
 
     /// Lookup account transactions.
