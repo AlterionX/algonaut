@@ -117,7 +117,7 @@ pub struct AccountAssetsResponse {
 
     /// Pagination token
     #[serde(rename = "next-token")]
-    pub next_token: String,
+    pub next_token: Option<String>,
 }
 
 /// Query account transactions.
