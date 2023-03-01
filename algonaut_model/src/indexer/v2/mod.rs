@@ -64,6 +64,12 @@ pub struct QueryAccountInfo {
     #[serde(rename = "include-all")]
     pub include_all: Option<bool>,
 
+    /// Exclude selection of information from api call.
+    ///
+    /// One of `all, assets, created-assets, apps-local-state, created-apps, none`.
+    /// Soon to be an enum.
+    pub exclude: Vec<String>,
+
     /// Include results for the specified round.
     pub round: Option<Round>,
 }
@@ -77,6 +83,41 @@ pub struct AccountInfoResponse {
     /// Round at which the results were computed.
     #[serde(rename = "current-round")]
     pub current_round: Round,
+}
+
+///
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Default)]
+pub struct QueryAccountAssetsInfo {
+    /// Include all items including closed accounts, deleted applications, destroyed assets,
+    /// opted-out asset holdings, and closed-out application localstates.
+    #[serde(rename = "asset-id")]
+    pub asset_id: Option<String>,
+
+    /// Include all items including closed accounts, deleted applications, destroyed assets,
+    /// opted-out asset holdings, and closed-out application localstates.
+    #[serde(rename = "include-all")]
+    pub include_all: Option<bool>,
+
+    /// Include results for the specified round.
+    pub limit: Option<u64>,
+
+    /// Include results for the specified round.
+    pub next: Option<String>,
+}
+
+///
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct AccountAssetsResponse {
+    /// Account.
+    pub assets: Vec<AssetHolding>,
+
+    /// Round at which the results were computed.
+    #[serde(rename = "current-round")]
+    pub current_round: Round,
+
+    /// Pagination token
+    #[serde(rename = "next-token")]
+    pub next_token: String,
 }
 
 /// Query account transactions.

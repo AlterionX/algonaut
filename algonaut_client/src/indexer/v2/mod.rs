@@ -7,7 +7,7 @@ use algonaut_model::indexer::v2::{
     ApplicationResponse, AssetResponse, AssetTransactionResponse, AssetsInfoResponse,
     BalancesResponse, Block, QueryAccount, QueryAccountInfo, QueryAccountTransaction,
     QueryApplicationInfo, QueryApplications, QueryAssetTransaction, QueryAssets, QueryAssetsInfo,
-    QueryBalances, QueryTransaction, TransactionInfoResponse, TransactionResponse,
+    QueryBalances, QueryTransaction, TransactionInfoResponse, TransactionResponse, AccountAssetsResponse, QueryAccountAssetsInfo,
 };
 use reqwest::header::HeaderMap;
 use reqwest::Url;
@@ -68,6 +68,22 @@ impl Client {
         let response = self
             .http_client
             .get(&format!("{}v2/accounts/{}", self.url, address))
+            .headers(self.headers.clone())
+            .query(query)
+            .send()
+            .await?
+            .http_error_for_status()
+            .await?
+            .json()
+            .await?;
+
+        Ok(response)
+    }
+
+    pub async fn account_assets(&self, address: &Address, query: &QueryAccountAssetsInfo) -> Result<AccountAssetsResponse, ClientError> {
+        let response = self
+            .http_client
+            .get(&format!("{}v2/accounts/{}/assets", self.url, address))
             .headers(self.headers.clone())
             .query(query)
             .send()
