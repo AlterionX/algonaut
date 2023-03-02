@@ -90,18 +90,20 @@ pub struct AccountInfoResponse {
 pub struct QueryAccountAssetsInfo {
     /// Include all items including closed accounts, deleted applications, destroyed assets,
     /// opted-out asset holdings, and closed-out application localstates.
-    #[serde(rename = "asset-id")]
+    #[serde(rename = "asset-id", skip_serializing_if = "Option::is_none")]
     pub asset_id: Option<String>,
 
     /// Include all items including closed accounts, deleted applications, destroyed assets,
     /// opted-out asset holdings, and closed-out application localstates.
-    #[serde(rename = "include-all")]
+    #[serde(rename = "include-all", skip_serializing_if = "Option::is_none")]
     pub include_all: Option<bool>,
 
     /// Include results for the specified round.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub limit: Option<u64>,
 
     /// Include results for the specified round.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub next: Option<String>,
 }
 
