@@ -68,6 +68,7 @@ pub struct QueryAccountInfo {
     ///
     /// One of `all, assets, created-assets, apps-local-state, created-apps, none`.
     /// Soon to be an enum.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub exclude: Vec<String>,
 
     /// Include results for the specified round.
